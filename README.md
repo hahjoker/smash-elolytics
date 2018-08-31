@@ -3,4 +3,4 @@ An implementation of an in-house [ELO system](https://en.wikipedia.org/wiki/Elo_
 
 Comes with match history and player analytics to determine winrates and ranking.
 
-Built with firebase firestore and jquery
+Built with firebase firestore

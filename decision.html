@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>make a choice</title>
+  <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-firestore.js"></script>
+  <script src="./jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="./css/decision.css">
+</head>
+
+<body>
+  <div class="intro">
+    <div class="sides">
+      <div class="side monkey">
+        <h2 id="name11" class="name">OH</h2>
+        <div class="emoji">
+          <p id="god"></p>
+        </div>
+      </div>
+      <div class="versus">
+        <span>vs.</span>
+      </div>
+      <div class="side robot">
+        <h2 id="name22" class="name">Oh</h2>
+        <div class="emoji">
+          <p id="why"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      $("#name11").text(localStorage['name1']);
+      $("#name22").text(localStorage['name2']);
+      setTimeout(myFunction, 5000);
+    });
+    function myFunction() {
+      window.location = "info.html";
+    }
+  </script>
+
+
+
+</body>
+
+</html>

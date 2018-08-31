@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <title>Series History</title>
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="./css/mainstyle.css">
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script src="./js/matchhistory.js"></script>
+</head>
+
+<body>
+    <div class="table-title">
+        <h3>Series History</h3>
+    </div>
+    <table class="table-fill">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Winner</th>
+                <th>Loser</th>
+            </tr>
+        </thead>
+        <tbody id="board" class="table-hover">
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function () {
+            tablegen()
+            //console.log(localStorage['name1'])
+        });
+    </script>
+</body>
+
+</html>

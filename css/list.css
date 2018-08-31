@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css?family=Quattrocento");
+body {
+  font-family: 'Quattrocento', serif;
+}
+
+p {
+  padding: 40px;
+}
+
+ul {
+  list-style: none;
+}
+ul li {
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  font-size: 50px;
+}
+ul li a {
+  text-decoration: none;
+  position: relative;
+  color: black;
+  display: inline-block;
+  letter-spacing: 2px;
+  z-index: 1;
+  transition: all 1s;
+}
+ul li a:before {
+  content: '';
+  height: 1px;
+  width: 0;
+  height: 100%;
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .5s;
+}
+ul li a:hover {
+  color: white;
+  transform: translateX(24px);
+}
+ul li a:hover:before {
+  width: 100%;
+}
+
+img {
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 400px;
+  left: 50%;
+  top: 50%;
+  opacity: 0;
+  transform: translateY(-50%) translateX(20%);
+  transition: all .6s;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0%);
+}

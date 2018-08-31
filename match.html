@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>who's up?</title>
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-firestore.js"></script>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="./css/list.css">
+</head>
+
+<body>
+    <p>| the lineup | click two names</p>
+    <ul id="board">
+    </ul>
+    <script>
+        var name1 = null;
+        var name2 = null;
+        $(document).ready(function () {
+            listgen()
+        });
+        $('body').click(function (e) {
+            var clicks = $(this).data('clicks');
+            if (clicks) {
+                if (e.target.id != undefined)
+                    name1 = e.target.id;
+            } else {
+                if (e.target.id != undefined)
+                    name2 = e.target.id;
+            }
+            console.log(name1 + "?" + name2);
+            $(this).data("clicks", !clicks);
+            if (name1 != null && name2 != null) {
+                localStorage['name1'] = name1;
+                localStorage['name2'] = name2;
+                window.location = "decision.html";
+            }
+        });
+    </script>
+    <script src="./js/roster.js"></script>
+</body>
+
+</html>

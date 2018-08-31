@@ -1,20 +1,16 @@
-var config = {
-    apiKey: "AIzaSyDgl3nyuro0aofZFSd1wuBxqwDtueCdAo4",
-    authDomain: "moviequeuelist.firebaseapp.com",
-    databaseURL: "https://moviequeuelist.firebaseio.com",
-    projectId: "moviequeuelist",
-    storageBucket: "moviequeuelist.appspot.com",
-    messagingSenderId: "642705972248"
-};
-firebase.initializeApp(config);
-const firestore = firebase.firestore();
-const settings = {/* your settings... */ timestampsInSnapshots: true };
-firestore.settings(settings);
+
 var matchRef = firestore.collection('matchhistory').doc(localStorage["matchid"]).collection('matches');
 
 $(document).ready(function () {
-    document.title = localStorage["matchid"];
-    document.getElementById("timetitle").innerText = localStorage["matchid"];
+    
+    
+    var dates=localStorage["matchid"].split("|");
+    var date=dates[0].split("-");
+    console.log(date);
+    console.log(dates[1]);
+    document.getElementById("timetitle").innerText = dates[1];
+    document.getElementById("datetitle").innerText = date[1]+"-"+date[0]+"-"+date[2];
+    document.title = dates[1]+"|"+date[1]+"-"+date[0]+"-"+date[2];
     firestore.collection('matchhistory').doc(localStorage["matchid"]).get().then(function (doc) {
         if (doc.exists) {
             $("#player1").text(doc.data().p1);

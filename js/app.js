@@ -1,16 +1,3 @@
-var config = {
-    apiKey: "AIzaSyDgl3nyuro0aofZFSd1wuBxqwDtueCdAo4",
-    authDomain: "moviequeuelist.firebaseapp.com",
-    databaseURL: "https://moviequeuelist.firebaseio.com",
-    projectId: "moviequeuelist",
-    storageBucket: "moviequeuelist.appspot.com",
-    messagingSenderId: "642705972248"
-};
-firebase.initializeApp(config);
-const firestore = firebase.firestore();
-const settings = {/* your settings... */ timestampsInSnapshots: true };
-firestore.settings(settings);
-
 let newUser = document.querySelector('#newUser');
 var usersCollectionRef = firestore.collection('users');
 
@@ -34,6 +21,12 @@ function myFunction() {
     window.location = "app.html";
 }
 
+
+function profileSent(reff){
+    localStorage["profileID"]=reff;
+    window.location="profile.html";
+}
+
 function tablegen() {
     var tableBody = document.getElementById('board');
     var i = 0;
@@ -50,6 +43,10 @@ function tablegen() {
             var tr = document.createElement('TR');
             for (j = 0; j < stock[i].length; j++) {
                 var td = document.createElement('TD')
+                if(j==0){
+                    td.id = stock[i][j];
+                    td.setAttribute('onClick', "profileSent(this.id)");
+                }
                 td.appendChild(document.createTextNode(stock[i][j]));
                 tr.appendChild(td)
             }

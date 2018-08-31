@@ -202,6 +202,7 @@ function champWL(winner, loser, wchampion, lchampion, modi) {
                     var ind = -1;
                     for (var index = 0; index < wchamparray.length; index++) {
                         var animal = wchamparray[index];
+                        console.log(ind)
                         if (animal.champ == wchampion) {
                             ind = index;
                             gods = {
@@ -216,8 +217,10 @@ function champWL(winner, loser, wchampion, lchampion, modi) {
                         }
                     }
                     if (ind < 0) {
-                        gods = { champ: wchampion, wins: 1, totalgamesplayed: 1 }
-                        usersCollectionRef.doc(winner).update({ champsplayed: firebase.firestore.FieldValue.arrayUnion(gods) });
+                        console.log("HElp");
+                        gods = { champ: wchampion, wins: 1, totalgamesplayed: 1 };
+                        wchamparray.push(gods);
+                        usersCollectionRef.doc(winner).update({ champsplayed: wchamparray });
                     }
                     //loser
                     ind = -1;

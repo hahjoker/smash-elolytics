@@ -26,7 +26,62 @@ $(document).ready(function () {
         "Donkey Kong",
         "Dr. Mario",
         "Duck Hunt",
-        "Falco"];
+        "Falco", "Fox",
+        "Ganondorf",
+        "Greninja",
+        "The Ice Climbers",
+        "Ike",
+        "Inkling",
+        "Jigglypuff",
+        "King Dedede",
+        "King K. Rool",
+        "Kirby",
+        "Link",
+        "Little Mac",
+        "Lucario",
+        "Lucas",
+        "Lucina",
+        "Luigi",
+        "Mario",
+        "Marth",
+        "Mega Man",
+        "Meta Knight",
+        "Mewtwo",
+        "Mii Brawler",
+        "Mii Gunner",
+        "Mii Fighter",
+        "Mr. Game & Watch",
+        "Ness",
+        "Olimar",
+        "Pac-Man",
+        "Palutena",
+        "Peach",
+        "Pichu",
+        "Pikachu",
+        "Pit",
+        "Pokemon Trainer",
+        "R.O.B.",
+        "Robin",
+        "Rosalina",
+        "Roy",
+        "Richter",
+        "Ridley",
+        "Ryu",
+        "Samus",
+        "Sheik",
+        "Shulk",
+        "Simon Belmont",
+        "Solid Snake",
+        "Sonic",
+        "Toon Link",
+        "Villager",
+        "Wario",
+        "Wii Fit Trainer",
+        "Wolf",
+        "Yoshi",
+        "Young Link",
+        "Zelda",
+        "Zero Suit Samus"];
     var array_of_nodes = [];
     for (i = 0; i < characters.length; i++) {
 
@@ -57,16 +112,22 @@ function testResults(form) {
     matchRef.collection("matches").doc("1").set({
         c1: form.g1char1.value,
         c2: form.g1char2.value,
+        p1: localStorage["name1"],
+        p2: localStorage["name2"],
         winner: form.g1winner.value
     })
     matchRef.collection("matches").doc("2").set({
         c1: form.g2char1.value,
         c2: form.g2char2.value,
+        p1: localStorage["name1"],
+        p2: localStorage["name2"],
         winner: form.g2winner.value
     })
     matchRef.collection("matches").doc("3").set({
         c1: form.g3char1.value,
         c2: form.g3char2.value,
+        p1: localStorage["name1"],
+        p2: localStorage["name2"],
         winner: form.g3winner.value
     })
     if (form.g2winner.value == form.g1winner.value) {
@@ -86,6 +147,7 @@ function testResults(form) {
     else {
         matchRef.set({
             winner: form.g3winner.value,
+            p1: localStorage["name1"],
             p2: localStorage["name2"]
         })
             .then(function () {
@@ -107,6 +169,7 @@ function testResults(form) {
     manohman(winnerN, loserN);
     if (form.g1winner.value == localStorage["name1"])///player one wins
     {
+
         champWL(localStorage["name1"], localStorage["name2"], form.g1char1.value, form.g1char2.value, 0);
     }
     else {

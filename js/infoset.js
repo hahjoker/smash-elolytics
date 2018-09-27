@@ -167,7 +167,8 @@ function testResults(form) {
         matchRef.update({ loser: loserN });
     }
     manohman(winnerN, loserN);
-    if (form.g1winner.value == localStorage["name1"])///player one wins
+    var gameChampArray =new Array ({player1: form.g1char1.value, player2: form.g1char2.value, winner: form.g1winner.value},{player1: form.g2char1.value, player2: form.g2char2.value, winner: form.g2winner.value},{player1: form.g3char1.value, player2: form.g3char2.value, winner: form.g3winner.value} );
+    /*if (form.g1winner.value == localStorage["name1"])///player one wins
     {
 
         champWL(localStorage["name1"], localStorage["name2"], form.g1char1.value, form.g1char2.value, 0);
@@ -188,7 +189,8 @@ function testResults(form) {
     else if (form.g3winner.value == localStorage["name2"]) {
         champWL(localStorage["name2"], localStorage["name1"], form.g3char2.value, form.g3char1.value, 2);
 
-    }
+    }*/
+    formProcessing(gameChampArray);
 }
 function manohman(winner, loser) {
     var winnerElo = 0;
@@ -315,3 +317,7 @@ function champWL(winner, loser, wchampion, lchampion, modi) {
     });
 }
 
+function formProcessing(input)
+{
+    
+}

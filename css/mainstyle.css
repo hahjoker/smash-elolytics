@@ -1,11 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
 
+
 body {
   background-color: #1e1a3e;
-  font-family: "Roboto", helvetica, arial, sans-serif;
+  font-family: Avenir;
+/*font-family: "Roboto", helvetica, arial, sans-serif;*/
   font-size: 16px;
   font-weight: 400;
   text-rendering: optimizeLegibility;
+}
+@font-face {
+  font-family: Avenir;
+  src: url(Avenir.ttc);
 }
 
 div.table-title {
@@ -13,15 +19,19 @@ div.table-title {
   margin: auto;
   max-width: 600px;
   padding:5px;
-  width: 100%;
+  width: 150%;
 }
 
 .table-title h3 {
    color: #fafafa;
-   font-size: 30px;
+   font-size: 75px;
    font-weight: 400;
-   font-style:normal;
-   font-family: "Roboto", helvetica, arial, sans-serif;
+   letter-spacing: 3px;
+   padding-bottom: 0px; 
+   margin-top: 20px;
+   padding-left:18px;
+   font-style: bold;
+   font-family: Avenir; /*"Roboto", helvetica, arial, sans-serif;*/
    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
    text-transform:uppercase;
 }
@@ -35,6 +45,8 @@ div.table-title {
   border-collapse: collapse;
   height: 320px;
   margin: auto;
+  margin-top: -65px; 
+  padding-bottom: 200px;
   max-width: 600px;
   padding:5px;
   width: 100%;
@@ -164,14 +176,14 @@ td.text-right {
 */
 
 .svg-wrapper {
-  margin-top: 0;
   position: relative;
   width: 150px;
   /*make sure to use same height/width as in the html*/
   height: 40px;
   display: inline-block;
   border-radius: 3px;
-  margin-left: 5px;
+  margin: auto;
+  margin-top: 15px;
   margin-right: 5px
 }
 /*

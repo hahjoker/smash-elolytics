@@ -41,7 +41,8 @@ usersCollectionRef.where("name", "==", localStorage["profileID"]).get().then(fun
             stock[z]= new Array(doc.data().champsplayed[z].champ, doc.data().champsplayed[z].totalgamesplayed,doc.data().champsplayed[z].wins);
         }
     });
-    for (i = 0; i < stock.length; i++) {
+    for (i = 0; i < stock.length; i++) 
+    {
         var tr = document.createElement('div');
         tr.className="meter";
         var td = document.createElement('span');

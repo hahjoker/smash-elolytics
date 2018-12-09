@@ -31,8 +31,11 @@ $(document).ready(function () {
         "Greninja",
         "The Ice Climbers",
         "Ike",
+        "Incineroar",
         "Inkling",
+        "Isabelle",
         "Jigglypuff",
+        "Ken",
         "King Dedede",
         "King K. Rool",
         "Kirby",
@@ -189,6 +192,10 @@ function testResults(form) {
         champWL(localStorage["name2"], localStorage["name1"], form.g3char2.value, form.g3char1.value, 2);
 
     }
+    setTimeout(move,4000);
+}
+function move(){
+    window.location = "app.html";
 }
 function manohman(winner, loser) {
     var winnerElo = 0;

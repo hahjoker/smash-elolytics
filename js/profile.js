@@ -66,7 +66,8 @@ usersCollectionRef.where("name", "==", localStorage["profileID"]).get().then(fun
         var desc = document.createElement('div');
         desc.className="small";
         desc.appendChild(document.createTextNode(stock[i][2]+"W"+"\t"));
-        desc.appendChild(document.createTextNode(stock[i][1]+"L"));
+        var diff=stock[i][1]-stock[i][2];
+        desc.appendChild(document.createTextNode(diff+"L"));
         li.appendChild(desc);
         //setBody.appendChild(desc);
         setBody.appendChild(li);

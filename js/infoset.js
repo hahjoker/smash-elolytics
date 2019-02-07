@@ -172,29 +172,129 @@ function testResults(form) {
         matchRef.update({ loser: loserN });
     }
     manohman(winnerN, loserN);
-    if (form.g1winner.value == localStorage["name1"])///player one wins
-    {
-
-        champWL(localStorage["name1"], localStorage["name2"], form.g1char1.value, form.g1char2.value, 0);
-    }
-    else {
-        champWL(localStorage["name2"], localStorage["name1"], form.g1char2.value, form.g1char1.value, 0);
-    }
-    if (form.g2winner.value == localStorage["name1"]) {
-        champWL(localStorage["name1"], localStorage["name2"], form.g2char1.value, form.g2char2.value, 1);
-    }
-    else {
-        champWL(localStorage["name2"], localStorage["name1"], form.g2char2.value, form.g2char1.value, 1);
-
-    }
-    if (form.g3winner.value == localStorage["name1"]) {
-        champWL(localStorage["name1"], localStorage["name2"], form.g3char1.value, form.g3char2.value, 2);
-    }
-    else if (form.g3winner.value == localStorage["name2"]) {
-        champWL(localStorage["name2"], localStorage["name1"], form.g3char2.value, form.g3char1.value, 2);
-
-    }
+    var p1array=[form.g1char1.value,form.g2char1.value,form.g3char1.value];
+    var gOutcome=[form.g1winner.value,form.g2winner.value,form.g3winner.value]
+    var p2array=[form.g1char2.value,form.g2char2.value,form.g3char2.value];
+    champUpdater(localStorage["name1"],localStorage["name2"],p1array,p2array,gOutcome);
     setTimeout(move,4000);
+}
+function champUpdater(p1,p2,player1s,player2s,outcomes)
+{
+    var totalgamesplay;
+    if(outcomes[2]=="NA")
+    {
+        totalgamesplay=2;
+    }
+    else
+        totalgamesplay=3;
+
+    var buildp1=[];
+    var buildp2=[];
+    var gods;
+    var i;
+    for (i = 0; i < totalgamesplay; i++) { 
+        if(p1==outcomes[i])
+        {
+            gods=player1s[i];
+            buildp1.push({champ:gods,totalgamesplayed:1,wins:1});
+            gods=player2s[i];
+            buildp2.push({champ:gods,totalgamesplayed:1,wins:0});
+        }
+        else
+        {
+            gods=player1s[i];
+            buildp1.push({champ:gods,totalgamesplayed:1,wins:0});
+            gods=player2s[i];
+            buildp2.push({champ:gods,totalgamesplayed:1,wins:1});
+        }
+      }
+
+      var output1 = [];
+      var output2 = [];
+
+      buildp1.forEach(function(item) {
+        var existing = output1.filter(function(v, i) {
+            return v.champ == item.champ;
+        });
+        if (existing.length) {
+            var existingIndex = output1.indexOf(existing[0]);
+            output1[existingIndex].wins = output1[existingIndex].wins+item.wins;
+            output1[existingIndex].totalgamesplayed = output1[existingIndex].totalgamesplayed+item.totalgamesplayed;
+        } else {
+            if (typeof item.wins == 'string')
+            item.wins = [item.wins];
+            output1.push(item);
+        }
+        });
+    buildp2.forEach(function(item) {
+        var existing = output2.filter(function(v, i) {
+            return v.champ == item.champ;
+        });
+        if (existing.length) {
+            var existingIndex = output2.indexOf(existing[0]);
+            output2[existingIndex].wins = output2[existingIndex].wins+item.wins;
+            output2[existingIndex].totalgamesplayed = output2[existingIndex].totalgamesplayed+item.totalgamesplayed;
+        } else {
+            if (typeof item.wins == 'string')
+            item.wins = [item.wins];
+            output2.push(item);
+        }
+        });
+
+    var p1champarray;
+    var p2champarray;
+    usersCollectionRef.where("name", "==", p1).get().then(function (docSnap) {
+        docSnap.forEach(function (doc) {
+            p1champarray = doc.data().champsplayed;
+            usersCollectionRef.where("name", "==", p2).get().then(function (docSnap) {
+                docSnap.forEach(function (doc) {
+                    p2champarray = doc.data().champsplayed; 
+                    //p1
+                    var combo=p1champarray.concat(output1);
+                    var comboOutput=[];
+                    
+                    combo.forEach(function(item) {
+                        var existing = comboOutput.filter(function(v, i) {
+                            return v.champ == item.champ;
+                        });
+                        if (existing.length) {
+                            var existingIndex = comboOutput.indexOf(existing[0]);
+                            comboOutput[existingIndex].wins = comboOutput[existingIndex].wins+item.wins;
+                            comboOutput[existingIndex].totalgamesplayed = comboOutput[existingIndex].totalgamesplayed+item.totalgamesplayed;
+                        } else {
+                            if (typeof item.wins == 'string')
+                            item.wins = [item.wins];
+                            comboOutput.push(item);
+                        }
+                        
+                        });
+                    usersCollectionRef.doc(p1).update({ champsplayed: comboOutput });
+
+
+                    //p2
+                    combo=p2champarray.concat(output2);
+                    comboOutput2=[];
+                    
+                    combo.forEach(function(item) {
+                        var existing = comboOutput2.filter(function(v, i) {
+                            return v.champ == item.champ;
+                        });
+                        if (existing.length) {
+                            var existingIndex = comboOutput2.indexOf(existing[0]);
+                            comboOutput2[existingIndex].wins = comboOutput2[existingIndex].wins+item.wins;
+                            comboOutput2[existingIndex].totalgamesplayed = comboOutput2[existingIndex].totalgamesplayed+item.totalgamesplayed;
+                        } else {
+                            if (typeof item.wins == 'string')
+                            item.wins = [item.wins];
+                            comboOutput2.push(item);
+                        }
+                        
+                        });
+                    usersCollectionRef.doc(p2).update({ champsplayed: comboOutput2 });
+
+                    });});
+        });
+    });
 }
 function move(){
     window.location = "app.html";
@@ -202,26 +302,26 @@ function move(){
 function manohman(winner, loser) {
     var winnerElo = 0;
     var loserElo = 0;
-    var wGamesPlayed = 0;
-    var lGamesPlayed = 0;
+    //var wGamesPlayed = 0;
+    //var lGamesPlayed = 0;
     var wchamparray;
     var lchamparray;
     usersCollectionRef.where("name", "==", winner).get().then(function (docSnap) {
         docSnap.forEach(function (doc) {
             winnerElo = doc.data().elo;
-            wGamesPlayed = doc.data().gamesplayed;
+            //wGamesPlayed = doc.data().gamesplayed;
             wchamparray = doc.data().champsplayed;
             usersCollectionRef.where("name", "==", loser).get().then(function (docSnap) {
                 docSnap.forEach(function (doc) {
                     loserElo = doc.data().elo;
-                    lGamesPlayed = doc.data().gamesplayed;
+                    //lGamesPlayed = doc.data().gamesplayed;
                     lchamparray = doc.data().champsplayed;
                     winnerElo = getNewRating(winnerElo, loserElo, 1);
                     loserElo = getNewRating(loserElo, winnerElo, 0);
                     usersCollectionRef.doc(winner).set({
                         name: winner,
                         elo: winnerElo,
-                        gamesplayed: wGamesPlayed + 1,
+                        //gamesplayed: wGamesPlayed + 1,
                         champsplayed: wchamparray
                     })
                         .then(function () {
@@ -233,7 +333,7 @@ function manohman(winner, loser) {
                     usersCollectionRef.doc(loser).set({
                         name: loser,
                         elo: loserElo,
-                        gamesplayed: lGamesPlayed + 1,
+                        //gamesplayed: lGamesPlayed + 1,
                         champsplayed: lchamparray
                     })
                         .then(function () {
@@ -259,68 +359,5 @@ function getRatingDelta(myRating, opponentRating, mgr) {
 }
 function getNewRating(myRating, opponentRating, mgr) {
     return myRating + getRatingDelta(myRating, opponentRating, mgr);
-}
-
-function champWL(winner, loser, wchampion, lchampion, modi) {
-    var wchamparray;
-    var lchamparray;
-    usersCollectionRef.where("name", "==", winner).get().then(function (docSnap) {
-        docSnap.forEach(function (doc) {
-            wchamparray = doc.data().champsplayed;
-            usersCollectionRef.where("name", "==", loser).get().then(function (docSnap) {
-                docSnap.forEach(function (doc) {
-                    lchamparray = doc.data().champsplayed;
-                    var gods = {};
-                    var ind = -1;
-                    for (var index = 0; index < wchamparray.length; index++) {
-                        var animal = wchamparray[index];
-                        console.log(ind)
-                        if (animal.champ == wchampion) {
-                            ind = index;
-                            gods = {
-                                champ: wchampion,
-                                totalgamesplayed: animal.totalgamesplayed + 1 + modi,
-                                wins: animal.wins + 1 + modi
-                            }
-                            wchamparray.splice(index);
-                            wchamparray.push(gods);
-                            usersCollectionRef.doc(winner).update({ champsplayed: wchamparray });
-                            break;
-                        }
-                    }
-                    if (ind < 0) {
-                        console.log("HElp");
-                        gods = { champ: wchampion, wins: 1, totalgamesplayed: 1 };
-                        wchamparray.push(gods);
-                        usersCollectionRef.doc(winner).update({ champsplayed: wchamparray });
-                    }
-                    //loser
-                    ind = -1;
-                    var safe;
-                    for (var index = 0; index < lchamparray.length; index++) {
-                        var animal = lchamparray[index];
-                        safe = animal;
-                        if (animal.champ == lchampion) {
-                            ind = index;
-                            gods = {
-                                champ: lchampion,
-                                totalgamesplayed: animal.totalgamesplayed + 1 + modi,
-                                wins: animal.wins
-                            }
-                            lchamparray.splice(index);
-                            lchamparray.push(gods);
-                            usersCollectionRef.doc(loser).update({ champsplayed: lchamparray });
-                            break;
-                        }
-                    }
-                    if (ind < 0) {
-                        gods = { champ: wchampion, wins: 0, totalgamesplayed: 1 }
-                        usersCollectionRef.doc(loser).update({ champsplayed: firebase.firestore.FieldValue.arrayUnion(gods) });
-                    }
-
-                })
-            });
-        })
-    });
 }
 
